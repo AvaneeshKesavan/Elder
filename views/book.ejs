@@ -40,6 +40,9 @@
                             <button type="submit">Confirm Booking</button>
                         </form>
 
+                        <div class="booking-flash" id="flashMessage" data-success="<%= success ? success : '' %>"
+                            data-error="<%= error ? error : '' %>"></div>
+
                         <br>
                         <h3>Your Bookings</h3>
                         <table class="booking-table">
@@ -48,7 +51,9 @@
                                     <th>Date</th>
                                     <th>Time</th>
                                     <th>Service</th>
+                                    <th>Requested Date</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,14 +69,27 @@
                                             <td>
                                                 <%= booking.service %>
                                             </td>
+                                            <td>
+                                                <%= booking.requestedDate || '-' %>
+                                            </td>
                                             <td><span class="status <%= booking.status %>">
                                                     <%= booking.status %>
                                                 </span></td>
+                                            <td>
+                                                <% if (booking.status !== 'cancelled' && booking.status !== 'rejected') { %>
+                                                    <form action="/bookings/<%= booking.id %>/cancel" method="POST"
+                                                        class="booking-action-form">
+                                                        <button type="submit" class="cancel-btn">Cancel</button>
+                                                    </form>
+                                                    <% } else { %>
+                                                        <span class="booking-action-muted">-</span>
+                                                        <% } %>
+                                            </td>
                                         </tr>
                                         <% }); %>
                                             <% } else { %>
                                                 <tr>
-                                                    <td colspan="4" style="text-align:center;padding:15px;color:#666">
+                                                    <td colspan="6" style="text-align:center;padding:15px;color:#666">
                                                         You have no booking yet.
                                                     </td>
                                                 </tr>
@@ -83,8 +101,6 @@
 
                 <%- include('partials/footer') %>
         </div>
-
-        <div id="successMessage" data-msg="<%= success ? success : '' %>"></div>
 
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
         <script src=/js/particle.js></script>
