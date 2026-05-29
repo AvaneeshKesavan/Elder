@@ -1,48 +1,59 @@
 function showForm(formType) {
-    document.getElementById('choice-box').style.display = 'none';
-    document.getElementById('login-form').classList.add('hidden');
-    document.getElementById('register-form').classList.add('hidden');
+    const choiceBox = document.getElementById('choice-box');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    if (!choiceBox || !loginForm || !registerForm) {
+        return;
+    }
+
+    choiceBox.style.display = 'none';
+    loginForm.classList.add('hidden');
+    registerForm.classList.add('hidden');
 
     if (formType === 'login') {
-        document.getElementById('login-form').classList.remove('hidden');
+        loginForm.classList.remove('hidden');
     } else {
-        document.getElementById('register-form').classList.remove('hidden');
+        registerForm.classList.remove('hidden');
     }
 }
 
-function handleRegistration(form) {
-    const dob = document.getElementById('dob').value;
+function handleRegistration() {
+    const dobInput = document.getElementById('dob');
+    const ageInput = document.getElementById('age');
+
+    if (!dobInput || !ageInput) {
+        return true;
+    }
+
+    const dob = dobInput.value;
     if (dob) {
         const birth = new Date(dob);
         const age = Math.floor((new Date() - birth) / (1000 * 60 * 60 * 24 * 365.25));
-        document.getElementById('age').value = age;
+        ageInput.value = age;
     }
+
     return true;
 }
 
 function togglePassword(icon) {
     const input = icon.previousElementSibling;
-    input.type = input.type === 'password' ? 'text' : 'password';
-    icon.textContent = input.type === 'password' ? 'O' : '*';
+    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    input.setAttribute('type', type);
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
 }
 
-// Automatically show form if showForm is passed from server
-const showFormType = "<%= showForm || '' %>";
-window.onload = function () {
-    const today = new Date().toISOString().split("T")[0];
-    document.getElementById("dob").max = today;
+window.addEventListener('DOMContentLoaded', () => {
+    const authContainer = document.querySelector('.auth-container');
+    const initialForm = authContainer ? authContainer.dataset.initialForm : '';
+    const dobInput = document.getElementById('dob');
 
-    if (showFormType) {
-        showForm(showFormType);
+    if (dobInput) {
+        dobInput.max = new Date().toISOString().split('T')[0];
     }
-};
 
-
-// Toggle Password JS
-function togglePassword(icon) {
-    const input = icon.previousElementSibling;
-    const type = input.getAttribute("type") === "password" ? "text" : "password";
-    input.setAttribute("type", type);
-    icon.classList.toggle("fa-eye");
-    icon.classList.toggle("fa-eye-slash");
-}
+    if (initialForm) {
+        showForm(initialForm);
+    }
+});
