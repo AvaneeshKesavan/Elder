@@ -1,5 +1,12 @@
+:root {
+  --accent: #5b2db6;
+  --accent-contrast: #ffffff;
+}
+
 body {
   padding-top: 120px;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Service hero section */
@@ -12,7 +19,7 @@ body {
 }
 
 .companionship-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), url('../img/companionship-hero.jpg'));
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0,0,0,0.25)), url('../img/companionship-hero.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -20,7 +27,8 @@ body {
 .service-hero h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: #facc15;
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .service-hero .lead {
@@ -31,7 +39,7 @@ body {
 
 /* Light yellow background sections */
 .bg-light-yellow {
-  background-color: #fef9e6;
+  background-color: #fbfaf8;
 }
 
 /* Service details section */
@@ -64,11 +72,12 @@ body {
 
 .benefit-card {
   background: #fff;
-  border: 2px solid #facc15;
+  border: 1px solid rgba(0,0,0,0.06);
   border-radius: 8px;
   padding: 2rem;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.25s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.04);
 }
 
 .benefit-card:hover {
@@ -76,8 +85,16 @@ body {
 }
 
 .benefit-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f4f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--accent);
+  font-size: 1.2rem;
 }
 
 .benefit-card h3 {
@@ -145,7 +162,7 @@ blockquote::before,
 blockquote::after {
   content: '"';
   font-size: 2rem;
-  color: #facc15;
+  color: var(--accent);
   line-height: 0;
 }
 
@@ -199,12 +216,17 @@ blockquote::after {
 .service-cta {
   padding: 4rem 0;
   text-align: center;
-  background: #000;
+  background: #0f1720;
   color: #fff;
 }
 
+/* Ensure no unexpected gap between CTA and footer */
+.service-cta {
+  margin-bottom: 0;
+}
+
 .service-cta h2 {
-  color: #facc15;
+  color: var(--accent);
   margin-bottom: 1rem;
 }
 
@@ -221,8 +243,8 @@ blockquote::after {
 }
 
 .btn-primary {
-  background-color: #facc15;
-  color: #000;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
   padding: 0.8rem 2rem;
   border-radius: 50px;
   font-weight: bold;
@@ -231,7 +253,7 @@ blockquote::after {
 }
 
 .btn-primary:hover {
-  background-color: #e6b800;
+  filter: brightness(0.95);
   transform: translateY(-2px);
 }
 
