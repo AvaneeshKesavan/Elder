@@ -1,8 +1,11 @@
 {
   "name": "code-sprint",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "serve": "npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,12 +14,14 @@
   "description": "Welcome to the Algnite repository! We're currently in the exciting phase of building the foundational structure for our company's online presence.",
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "better-sqlite3": "^11.10.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
     "express-session": "^1.18.1",
-    "multer": "^2.0.1",
-    "sqlite3": "^5.1.7"
+    "mongoose": "^8.15.1",
+    "multer": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
