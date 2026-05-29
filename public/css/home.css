@@ -229,28 +229,19 @@
 
 /* Scrollable Service Cards */
 .service-scroll-wrapper {
-    display: flex;
-    gap: 40px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 30px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-}
-
-.service-scroll-wrapper::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    padding-bottom: 10px;
 }
 
 .service-card {
-    flex: 0 0 auto;
-    width: 350px;
-    scroll-snap-align: center;
     background-color: white;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .service-card:hover {
@@ -301,6 +292,19 @@
     }
 
     nav>div {
+
+    .founder-section .image-content {
+        display: flex;
+        justify-content: center;
+    }
+
+    .founder-section .image-content img {
+        max-width: 360px;
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        object-fit: cover;
+    }
         flex-direction: column;
     }
 
@@ -340,7 +344,7 @@
     }
 
     .service-card {
-        width: 280px;
+        width: 100%;
     }
 
     .service-card img {
