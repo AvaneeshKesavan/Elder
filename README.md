@@ -22,7 +22,7 @@ Algnite – Elder Care is a web-based platform built to support elders with serv
 
 - **Frontend:** HTML, CSS, JavaScript, EJS
 - **Backend:** Node.js, Express.js
-- **Database:** SQLite (better-sqlite3)
+- **Database:** MongoDB (Mongoose)
 - **File Uploads:** Multer
 - **Authentication:** Session-based
 
@@ -34,12 +34,18 @@ project-root/
 │
 ├── public/            # Static assets (CSS, images)
 ├── views/             # EJS templates
-├── app.js             # Main application file
-├── users.db           # Database for user information
-├── data.db            # Database for bookings and messages
+├── app.js             # Entry file for the app
+├── server.js          # MongoDB-backed application server
 ├── package.json       # Project dependencies
 └── README.md
 ```
+
+## Setup Notes
+
+- Set `MONGODB_URI` to point at your MongoDB instance.
+- The app uses sessions for authentication and Mongoose for persistence.
+- Use `npm start` for production-style startup.
+- Use `npm run dev` during development with automatic restarts.
 
 ## Stay Tuned!
 
