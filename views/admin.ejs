@@ -18,6 +18,25 @@
       <section class="dashboard">
         <h2>Admin Dashboard</h2>
 
+        <div class="dashboard-stats">
+          <div class="stat-card">
+            <span>Total Users</span>
+            <strong><%= stats.users %></strong>
+          </div>
+          <div class="stat-card">
+            <span>Total Bookings</span>
+            <strong><%= stats.bookings %></strong>
+          </div>
+          <div class="stat-card">
+            <span>Pending Bookings</span>
+            <strong><%= stats.pendingBookings %></strong>
+          </div>
+          <div class="stat-card">
+            <span>Contact Messages</span>
+            <strong><%= stats.messages %></strong>
+          </div>
+        </div>
+
         <!-- Sub Navigation Bar -->
         <div class="sub-nav">
           <a href="/admin" class="sub-nav-item <%= (currentPage === 'users') ? 'active' : '' %>">Users</a>
@@ -83,6 +102,7 @@
                       <th>Email</th>
                       <th>Service</th>
                       <th>Date</th>
+                      <th>Requested Date</th>
                       <th>Time</th>
                       <th>Note</th>
                       <th>Status</th>
@@ -106,6 +126,9 @@
                         </td>
                         <td>
                           <%= b.date %>
+                        </td>
+                        <td>
+                          <%= b.requestedDate || '-' %>
                         </td>
                         <td>
                           <%= b.time %>
