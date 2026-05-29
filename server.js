@@ -63,7 +63,6 @@ const contactSchema = new mongoose.Schema(
   schemaOptions
 );
 
-userSchema.index({ email: 1 }, { unique: true });
 userSchema.virtual('id').get(function idGetter() {
   return this._id.toString();
 });
