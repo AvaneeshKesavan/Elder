@@ -73,6 +73,37 @@
   text-align: left;
 }
 
+.booking-flash {
+  display: none;
+}
+
+.booking-action-form {
+  margin: 0;
+}
+
+.booking-action-muted {
+  color: #666;
+  font-size: 14px;
+}
+
+.cancel-btn {
+  padding: 10px 14px;
+  background: #d64545;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: #bb3131;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px -4px #000;
+}
+
 .booking-table tr:hover {
   background: #fffacc;
 }
@@ -97,6 +128,11 @@
 .status.rejected {
   background: #ff9999;
   color: #cc0000;
+}
+
+.status.cancelled {
+  background: #e3e3e3;
+  color: #666;
 }
 
 @media (max-width: 600px) {
