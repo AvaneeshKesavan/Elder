@@ -230,8 +230,10 @@
 /* Scrollable Service Cards */
 .service-scroll-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
     padding-bottom: 10px;
 }
 
@@ -313,6 +315,11 @@
         flex-wrap: wrap;
         justify-content: center;
     }
+
+    .service-scroll-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -357,5 +364,10 @@
 
     .service-card p {
         font-size: 15px;
+    }
+
+    .service-scroll-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 }

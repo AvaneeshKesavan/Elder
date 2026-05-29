@@ -16,7 +16,6 @@
   <%- include('partials/loader') %>
   <div class="auth-container" data-initial-form="<%= showForm || '' %>">
     <h1>Welcome to Elder</h1>
-    <a class="back-home-link" href="/">Back to Home</a>
 
     <!-- Choice -->
     <% if (!showForm) { %>
@@ -48,6 +47,7 @@
         <p class="toggle-link">Don't have an account?
           <a href="#" onclick="showForm('register')">Register</a>
         </p>
+        <a class="back-home-link" href="/">Back to Home</a>
       </div>
 
       <!-- Register Form -->
@@ -84,6 +84,7 @@
         <p class="toggle-link">Already have an account?
           <a href="#" onclick="showForm('login')">Login</a>
         </p>
+        <a class="back-home-link" href="/">Back to Home</a>
       </div>
   </div>
 
