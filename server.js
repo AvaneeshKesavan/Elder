@@ -8,7 +8,8 @@ const bcrypt = require('bcrypt');
 const app = express();
 const port = process.env.PORT || 3000;
 const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/algnite_elder';
-const ADMIN_EMAIL = 'admin@algnite.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@algnite.com';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'adminpass';
 const SERVICE_VIEWS = new Set(['companion', 'housekeep', 'mealprep', 'medication', 'personal', 'transport']);
 
 mongoose.set('strictQuery', true);
@@ -466,6 +467,71 @@ app.get('/admin', async (req, res) => {
   return renderAdminPage(req, res, 'users');
 });
 
+async function seedDatabase() {
+  try {
+    // Ensure admin user exists; optionally reset DB when RESET_DB=true
+    const reset = String(process.env.RESET_DB || '').toLowerCase() === 'true';
+
+    if (reset) {
+      await Promise.all([User.deleteMany({}), Booking.deleteMany({}), Contact.deleteMany({})]);
+    }
+
+    // Create admin if missing
+    let admin = await User.findOne({ email: ADMIN_EMAIL.toLowerCase() });
+    if (!admin) {
+      const hashed = await bcrypt.hash(ADMIN_PASSWORD, 10);
+      admin = await User.create({
+        fullname: 'Administrator',
+        email: ADMIN_EMAIL.toLowerCase(),
+        password: hashed,
+        phone: '0000000000',
+      });
+      console.log('Admin user created:', ADMIN_EMAIL);
+    } else if (reset) {
+      // On reset, ensure password matches ADMIN_PASSWORD
+      const matches = await bcrypt.compare(ADMIN_PASSWORD, admin.password).catch(() => false);
+      if (!matches) {
+        admin.password = await bcrypt.hash(ADMIN_PASSWORD, 10);
+        await admin.save();
+        console.log('Admin password reset to value from env.');
+      }
+    }
+
+    // If resetting, add a sample user, booking and contact
+    if (reset) {
+      const samplePass = await bcrypt.hash('password', 10);
+      const sampleUser = await User.create({
+        fullname: 'Sample User',
+        email: 'sample@example.com',
+        password: samplePass,
+        phone: '1234567890',
+      });
+
+      await Booking.create({
+        userId: sampleUser._id,
+        name: sampleUser.fullname,
+        email: sampleUser.email,
+        service: 'companion',
+        date: new Date(Date.now() + 86400000).toISOString().slice(0, 10),
+        time: '10:00',
+        note: 'Sample booking created on startup',
+        status: 'pending',
+      });
+
+      await Contact.create({
+        name: 'Sample Contact',
+        email: 'visitor@example.com',
+        subject: 'Hello',
+        message: 'This is a seeded message',
+      });
+
+      console.log('Sample user, booking and contact created due to RESET_DB=true');
+    }
+  } catch (err) {
+    console.error('Error during seedDatabase:', err);
+  }
+}
+
 app.get('/admin/bookings', async (req, res) => {
   if (!ensureAdmin(req, res)) {
     return;
@@ -525,6 +591,8 @@ app.get('/logout', (req, res) => {
 async function startServer() {
   try {
     await mongoose.connect(mongoUri);
+    // Run DB seeding/refresh if needed
+    await seedDatabase();
     app.listen(port, () => {
       console.log(`Server running at http://localhost:${port}`);
       console.log('Connected to MongoDB');

@@ -47,6 +47,10 @@ project-root/
 - Use `npm start` for production-style startup.
 - Use `npm run dev` during development with automatic restarts.
 
+Developer options:
+- `ADMIN_EMAIL` / `ADMIN_PASSWORD`: set admin credentials for the seeded admin user.
+- `RESET_DB=true`: when set, the app will wipe and reseed sample data on each startup (useful for demos).
+
 ## Stay Tuned!
 
 This repository will evolve as we build and refine our online presence. We're excited about this initial phase and look forward to sharing our progress.
